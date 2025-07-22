@@ -85,7 +85,7 @@ def convert_to_exchange_trading_pair(hb_trading_pair: str, delimiter: str = "") 
     return exchange_trading_pair
 
 
-def _build_private_rate_limits(tier: KrakenAPITier = KrakenAPITier.STARTER) -> List[RateLimit]:
+def _build_private_rate_limits(tier: KrakenAPITier = KrakenAPITier.INTERMEDIATE) -> List[RateLimit]:
     private_rate_limits = []
 
     PRIVATE_ENDPOINT_LIMIT, MATCHING_ENGINE_LIMIT = CONSTANTS.KRAKEN_TIER_LIMITS[tier]
@@ -154,7 +154,7 @@ def _build_private_rate_limits(tier: KrakenAPITier = KrakenAPITier.STARTER) -> L
     return private_rate_limits
 
 
-def build_rate_limits_by_tier(tier: KrakenAPITier = KrakenAPITier.STARTER) -> List[RateLimit]:
+def build_rate_limits_by_tier(tier: KrakenAPITier = KrakenAPITier.INTERMEDIATE) -> List[RateLimit]:
     rate_limits = []
 
     rate_limits.extend(CONSTANTS.PUBLIC_API_LIMITS)
@@ -184,9 +184,9 @@ class KrakenConfigMap(BaseConnectorConfigMap):
         }
     )
     kraken_api_tier: str = Field(
-        default="Starter",
+        default="Intermediate",
         json_schema_extra={
-            "prompt": "Enter your Kraken API Tier (Starter/Intermediate/Pro)",
+            "prompt": "Enter your Kraken API Tier (Intermediate/Pro)",
             "prompt_on_new": True,
         }
     )
